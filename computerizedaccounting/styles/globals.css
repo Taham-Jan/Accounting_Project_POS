@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transition-halfs{
+    transition: 0.5s;
+}
+[type='text']:focus,[type='password']:focus,[type='email']:focus,[type='number']:focus,[type='tel']:focus,textarea:focus{
+    outline: 2px solid transparent;
+    box-shadow: none;
+    border-color: none;
+
+}
+
