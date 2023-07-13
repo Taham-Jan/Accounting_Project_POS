@@ -18,13 +18,7 @@ import FeatherIcon from "feather-icons-react";
 import Menuitems from "./MenuItems";
 import { useRouter } from "next/router";
 
-
-const Sidebar = ({
-  isMobileSidebarOpen,
-  onSidebarClose,
-  isSidebarOpen,
-  
-}) => {
+const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
   const [open, setOpen] = React.useState(true);
 
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
@@ -40,65 +34,63 @@ const Sidebar = ({
   const location = curl.pathname;
 
   const SidebarContent = (
-    <Box p={2} height="100%">
-      
+    <Box p={2}>
       <Box
-        mt={2}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: "85vh",
+        component="nav"
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          backgroundColor: "#f5f5f5",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <List>
+        <List
+          component="ul"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: 0,
+          }}
+        >
           {Menuitems.map((item, index) => (
-            <List component="li" disablePadding key={item.title}>
-              <NextLink href={item.href}>
-                <ListItem
-                style={{
-                  border:"2px solid red",
-                  fontFamily:"arial !important",
+            <NextLink href={item.href} passHref key={item.title}>
+              <ListItem
+                onClick={() => handleClick(index)}
+                button
+                selected={location === item.href}
+                sx={{
+                  ...(location === item.href && {
+                    color: "white",
+                    backgroundColor: "#617A55",
+                    borderRadius: "0 !important",
+                    fontWeight: "950 !important",
+                    "&:hover": {
+                      backgroundColor: "#A4D0A4 !important",
+                    },
+                  }),
                 }}
-                  onClick={() => handleClick(index)}
-                  button
-                  selected={location === item.href}
-                  sx={{
-                    mb: 1,
-                    ...(location === item.href && {
-                      color: "white",
-                      backgroundColor: (theme) =>
-                        `${theme.palette.primary.main}!important`,
-                    }),
-                  }}
-                >
-                  <ListItemIcon>
-                    <FeatherIcon
-                      style={{
-                        color: `${location === item.href ? "white" : ""} `,
-                      }}
-                      icon={item.icon}
-                      width="20"
-                      height="20"
-                    />
-                  </ListItemIcon>
-
-                  <ListItemText onClick={onSidebarClose}>
+              >
+                <ListItemText onClick={onSidebarClose}>
+                  <Typography
+                    className="myListItemText"
+                    sx={{ fontFamily: "'Montserrat', sans-serif" }}
+                  >
                     {item.title}
-                  </ListItemText>
-                </ListItem>
-              </NextLink>
-            </List>
+                  </Typography>
+                </ListItemText>
+              </ListItem>
+            </NextLink>
           ))}
         </List>
-        
       </Box>
     </Box>
   );
   if (lgUp) {
     return (
       <Drawer
-        anchor="left"
+        anchor="top"
         open={isSidebarOpen}
         variant="persistent"
         PaperProps={{
@@ -115,12 +107,12 @@ const Sidebar = ({
   }
   return (
     <Drawer
-      anchor="left"
+      anchor="top"
       open={isMobileSidebarOpen}
       onClose={onSidebarClose}
       PaperProps={{
         sx: {
-          width: "265px",
+          // width: "265px",
           border: "0 !important",
         },
       }}

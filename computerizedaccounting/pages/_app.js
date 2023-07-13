@@ -1,5 +1,6 @@
-import "../styles/style.css";
 import "../styles/globals.css";
+import "../styles/style.css";
+
 import * as React from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";

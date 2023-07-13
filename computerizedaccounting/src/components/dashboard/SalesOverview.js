@@ -36,7 +36,7 @@ const SalesOverview = () => {
         show: false,
       },
       foreColor: "#adb0bb",
-      fontFamily: "'Montserrat',sans-serif",
+      fontFamily: "'DM Sans',sans-serif",
       sparkline: {
         enabled: false,
       },

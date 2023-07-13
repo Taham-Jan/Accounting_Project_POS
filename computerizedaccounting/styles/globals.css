@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Outfit:wght@100;300;400;500;600;700;800&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 .transition-halfs{
     transition: 0.5s;
 }
@@ -11,6 +10,12 @@
     outline: 2px solid transparent;
     box-shadow: none;
     border-color: none;
-
+    font-family: 'Montserrat', sans-serif !important;
 }
 
+.myListItemText {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.2rem;
+    /* font-family: "Montserrat", sans-serif; */
+  }

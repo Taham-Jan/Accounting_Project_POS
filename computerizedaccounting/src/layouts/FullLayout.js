@@ -8,9 +8,8 @@ import {
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 
-
 const MainWrapper = experimentalStyled("div")(() => ({
-  fontFamily:"Montserrat !important",
+  fontFamily: "'Montserrat' !important",
   display: "flex",
   minHeight: "100vh",
   overflow: "hidden",
@@ -31,20 +30,21 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
   },
 }));
 
-const FullLayout = ({ children,user ,logout}) => {
+const FullLayout = ({ children, user, logout }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <MainWrapper>
-      <Header 
+      <Header
         sx={{
           paddingLeft: isSidebarOpen && lgUp ? "265px" : "",
           backgroundColor: "#fbfbfb",
         }}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
       />
-      <Sidebar logout={logout}
+      <Sidebar
+        logout={logout}
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
@@ -53,14 +53,13 @@ const FullLayout = ({ children,user ,logout}) => {
         <Container
           maxWidth={false}
           sx={{
-            paddingTop: "20px",
-            paddingLeft: isSidebarOpen && lgUp ? "280px!important" : "",
+            paddingTop: "40px",
           }}
         >
           <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
-          
         </Container>
       </PageWrapper>
+
     </MainWrapper>
   );
 };
