@@ -10,6 +10,7 @@ import Sidebar from "./sidebar/Sidebar";
 
 
 const MainWrapper = experimentalStyled("div")(() => ({
+  fontFamily:"Montserrat !important",
   display: "flex",
   minHeight: "100vh",
   overflow: "hidden",

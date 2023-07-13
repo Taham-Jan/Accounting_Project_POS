@@ -15,7 +15,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import FeatherIcon from "feather-icons-react";
-import LogoIcon from "../logo/LogoIcon";
 import Menuitems from "./MenuItems";
 import { useRouter } from "next/router";
 
@@ -57,6 +56,10 @@ const Sidebar = ({
             <List component="li" disablePadding key={item.title}>
               <NextLink href={item.href}>
                 <ListItem
+                style={{
+                  border:"2px solid red",
+                  fontFamily:"arial !important",
+                }}
                   onClick={() => handleClick(index)}
                   button
                   selected={location === item.href}
