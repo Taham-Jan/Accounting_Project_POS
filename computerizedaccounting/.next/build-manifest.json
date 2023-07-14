@@ -34,6 +34,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/addaccount.js"
+    ],
+    "/generaljournal": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/generaljournal.js"
     ]
   },
   "ampFirstPages": []

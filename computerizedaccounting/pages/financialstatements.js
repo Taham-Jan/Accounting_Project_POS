@@ -67,6 +67,9 @@ const FinancialStatements = ({
 
   const liabilityownerTotal = liabilitiesTotal + ownersequityTotal;
 
+  const currentDate = new Date();
+const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
   return (
     <>
       <BaseCard >
@@ -82,11 +85,11 @@ const FinancialStatements = ({
               <TableRow>
                 <TableCell colSpan={3} align="center">
                   <Typography color="textSecondary" variant="h3">
-                    REED GEOPHYSICAL COMPANY
+                    TECH-DEVOTEES COMPANY
                     <br />
                     <span style={{ fontWeight: 600 }}>Income Statement</span>
                     <br />
-                    For the year ended December 31, 22
+                    For the year ended December 31, 23
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -188,13 +191,13 @@ const FinancialStatements = ({
               <TableRow>
                 <TableCell colSpan={3} align="center">
                   <Typography color="textSecondary" variant="h3">
-                    REED GEOPHYSICAL COMPANY
+                    TECH-DEVOTEES COMPANY
                     <br />
                     <span style={{ fontWeight: 600 }}>
                       Statement of Owner's Equity
                     </span>
                     <br />
-                    For the year ended December 31, 22
+                    For the year ended December 31, 23
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -296,11 +299,11 @@ const FinancialStatements = ({
               <TableRow>
                 <TableCell colSpan={2} align="center">
                   <Typography color="textSecondary" variant="h3">
-                    REED GEOPHYSICAL COMPANY
+                    TECH-DEVOTEES COMPANY
                     <br />
                     <span style={{ fontWeight: 600 }}>Balance Sheet</span>
                     <br />
-                    As at December 31, 22
+                    As of {endOfMonth.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </Typography>
                 </TableCell>
               </TableRow>

@@ -6,7 +6,22 @@ const BaseCard = (props) => {
   return (
     <Card>
       <Box p={2} display="flex" alignItems="center">
-        <Typography variant="h4">{props.title}</Typography>
+        {props.title ? (
+          <Typography
+            variant="h4"
+            sx={{
+              width: "100%",
+              padding: "1rem",
+              borderBottom: "1px solid rgba(77,77,77,0.2)",
+              textAlign: "center",
+              textTransform: "uppercase",
+            }}
+          >
+            {props.title}
+          </Typography>
+        ) : (
+          ""
+        )}
       </Box>
       <CardContent>{props.children}</CardContent>
     </Card>

@@ -1,7 +1,7 @@
 const typography = {
-  fontFamily: "'Montserrat', sans-serif",
+  fontFamily: "'Montserrat',san-serif !important",
   body1: {
-    fontWeight: 400, // or 'bold'
+    fontWeight: 400, 
   },
   h1: {
     fontWeight: 500,

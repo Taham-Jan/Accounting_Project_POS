@@ -11,23 +11,21 @@ import Select from "@mui/material/Select";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const AddAccount = () => {
   const router = useRouter();
   const [accountname, setAccountname] = useState();
   const [accounttype, setAccounttype] = useState();
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
 
   const handleChange = (e) => {
     if (e.target.name == "accountname") {
       setAccountname(e.target.value);
     } else if (e.target.name == "accounttype") {
       setAccounttype(e.target.value);
+    } else if (e.target.name == "total") {
+      setTotal(e.target.value);
     }
-   else if (e.target.name == "total") {
-    setTotal(e.target.value);
-  }
   };
 
   const handleSubmit = async (e) => {
@@ -36,11 +34,11 @@ const AddAccount = () => {
     const data = {
       accountname,
       accounttype,
-      total
+      total,
     };
 
     let res = await fetch("http://localhost:3000/api/addaccount", {
-      method: "POST", // or 'PUT'
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -50,7 +48,7 @@ const AddAccount = () => {
 
     if (response.success == "success") {
       toast.success("Your Account Has Been Added", {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -63,7 +61,7 @@ const AddAccount = () => {
       }, 2000);
     } else {
       toast.error(response.error, {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -73,11 +71,11 @@ const AddAccount = () => {
       });
     }
   };
-  
+
   return (
     <>
       <ToastContainer
-        position="bottom-left"
+        position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -112,7 +110,7 @@ const AddAccount = () => {
                       </InputLabel>
                       <Select
                         required
-                        label="Fabric Type"
+                        label="Account Type"
                         defaultValue=""
                         id="type"
                         name="accounttype"
@@ -135,14 +133,14 @@ const AddAccount = () => {
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
-                     type="number"
+                      type="number"
                       required
                       id="total"
                       name="total"
                       value={total}
                       onChange={handleChange}
-                      fullWidth
-                      label="Add Trial Value"
+                      // fullWidth
+                      label="Amount"
                       placeholder=""
                     />
                   </Grid>
@@ -150,9 +148,22 @@ const AddAccount = () => {
               </CardContent>
               <Divider sx={{ margin: 0 }} />
               <CardActions style={{ padding: "16px" }}>
-                <Button startIcon={<AddCircleIcon/>} size="large" type="submit" sx={{}} variant="contained">
-                  Add Account
-                </Button>
+                <div className="w-full flex justify-center">
+                  <Button
+                    size="large"
+                    type="submit"
+                    sx={{
+                      width: "20%",
+                      backgroundColor: "#617A55",
+                      "&:hover": {
+                        backgroundColor: "#A4D0A4",
+                      },
+                    }}
+                    variant="contained"
+                  >
+                    Add Account
+                  </Button>
+                </div>
               </CardActions>
             </form>
           </BaseCard>

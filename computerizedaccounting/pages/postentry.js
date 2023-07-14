@@ -1,6 +1,12 @@
 import React from "react";
 import BaseCard from "../src/components/baseCard/BaseCard";
-import { Grid, TextField, FormControl, Button, Typography } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  FormControl,
+  Button,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,15 +19,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import mongoose from "mongoose";
 import Account from "../models/Account";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import LoginIcon from '@mui/icons-material/Login';
-import dayjs from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-
-
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import LoginIcon from "@mui/icons-material/Login";
+import dayjs from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 const PostEntry = ({ accounts }) => {
   const router = useRouter();
@@ -32,36 +36,31 @@ const PostEntry = ({ accounts }) => {
   const creditTemplate = { accountname: "", amount: "" };
   const [creditList, setCreditList] = useState([creditTemplate]);
   var today = new Date();
-  
+
   const [date, setDate] = useState(dayjs(today));
-  let flag=true;
-  
-  
-  
-  
-  const debitTotal=debitList.reduce((accumulator, {amount}) => {
-    return accumulator+ + amount;
+  let flag = true;
+
+  const debitTotal = debitList.reduce((accumulator, { amount }) => {
+    return accumulator + +amount;
   }, 0);
-  const creditTotal=creditList.reduce((accumulator, {amount}) => {
-    return accumulator+ + amount;
+  const creditTotal = creditList.reduce((accumulator, { amount }) => {
+    return accumulator + +amount;
   }, 0);
-  
-  if(debitTotal==creditTotal){
-    flag=true
+
+  if (debitTotal == creditTotal) {
+    flag = true;
+  } else {
+    flag = false;
   }
-  else{
-    flag=false
-  }
- 
 
   const handleAddDebit = () => {
     setDebitList([...debitList, debitTemplate]);
   };
 
   const handleRemoveDebit = (index) => {
-    const filtereddebitList=[...debitList];
-    filtereddebitList.splice(index,1)
-    setDebitList(filtereddebitList)
+    const filtereddebitList = [...debitList];
+    filtereddebitList.splice(index, 1);
+    setDebitList(filtereddebitList);
   };
 
   const handleChangeDebit = (e, index) => {
@@ -78,9 +77,9 @@ const PostEntry = ({ accounts }) => {
   };
 
   const handleRemoveCredit = (index) => {
-    const filteredcreditList=[...creditList];
-    filteredcreditList.splice(index,1)
-    setCreditList(filteredcreditList)
+    const filteredcreditList = [...creditList];
+    filteredcreditList.splice(index, 1);
+    setCreditList(filteredcreditList);
   };
 
   const handleChangeCredit = (e, index) => {
@@ -94,16 +93,16 @@ const PostEntry = ({ accounts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let newDate=date.toString().slice(0,16)
-    console.log(newDate)
+    let newDate = date.toString().slice(0, 16);
+    console.log(newDate);
     const data = {
       debitList,
       creditList,
-      newDate
+      newDate,
     };
 
     let res = await fetch("http://localhost:3000/api/postentry", {
-      method: "POST", // or 'PUT'
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -112,7 +111,7 @@ const PostEntry = ({ accounts }) => {
     let response = await res.json();
     if (response.success == "success") {
       toast.success("Your Entry has been Posted", {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -120,14 +119,14 @@ const PostEntry = ({ accounts }) => {
         draggable: true,
         progress: undefined,
       });
-      setDebitList([debitTemplate])
-      setCreditList([creditTemplate])
+      setDebitList([debitTemplate]);
+      setCreditList([creditTemplate]);
       setTimeout(() => {
         router.push("/postentry");
       }, 1000);
     } else {
       toast.error(response.error, {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -137,7 +136,6 @@ const PostEntry = ({ accounts }) => {
       });
     }
   };
-  
 
   const handleChange = (newValue) => {
     setDate(newValue);
@@ -145,7 +143,7 @@ const PostEntry = ({ accounts }) => {
   return (
     <>
       <ToastContainer
-        position="bottom-left"
+        position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -157,50 +155,61 @@ const PostEntry = ({ accounts }) => {
       />
       <Grid container spacing={0}>
         <Grid item xs={12} lg={12}>
-          <BaseCard title="Post To Ledger" className="text-lg">
+          <BaseCard title="Posting To The Ledger" className="text-lg">
             <form onSubmit={handleSubmit} method="POST">
               <CardContent>
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
-      
-        <DesktopDatePicker
-          label="Select Date"
-          inputFormat="MM/DD/YYYY"
-          value={date}
-          name="date"
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-          
-        />
-        
-        
-      
-    </LocalizationProvider>
-                <Typography variant="h2" sx={{mb:3,mt:4}}>Debit</Typography>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    className="w-full flex justify-end"
+                    label="Select Date"
+                    inputFormat="MM/DD/YYYY"
+                    value={date}
+                    name="date"
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                <Typography
+                  sx={{
+                    width: "100%",
+                    padding: "1rem",
+                    borderBottom: "1px solid rgba(77,77,77,0.2)",
+                    textAlign: "center",
+                    textTransform: "uppercase",
+                    mb: 3,
+                    mt: 4,
+                  }}
+                  variant="h2"
+                >
+                  DEBIT ACCOUNT'S ENTRIES
+                </Typography>
                 {debitList.map((debit, index) => (
                   <Grid key={index} container spacing={5} sx={{ mb: 3 }}>
                     <Grid item xs={12} sm={5}>
-                    <FormControl fullWidth>
-                      <InputLabel id="selectingfabrictype">
-                        Account Name
-                      </InputLabel>
-                      <Select
-                        required
-                        label="Account Name"
-                        defaultValue=""
-                        id="type"
-                        name="accountname"
-                        value={debit.accountname}
-                        onChange={(e) => handleChangeDebit(e, index)}
-                        labelId="selectingaccountname"
-                      >
-                        {accounts.map((account) => (
-              <MenuItem value={account.accountname} key={account.accountname}>
-                {account.accountname}
-              </MenuItem>
-            ))}
-                        
-                      </Select>
-                    </FormControl>
+                      <FormControl fullWidth>
+                        <InputLabel id="selectingfabrictype">
+                          Account Name
+                        </InputLabel>
+                        <Select
+                          required
+                          label="Account Name"
+                          defaultValue=""
+                          id="type"
+                          name="accountname"
+                          value={debit.accountname}
+                          onChange={(e) => handleChangeDebit(e, index)}
+                          labelId="selectingaccountname"
+                        >
+                          {accounts.map((account) => (
+                            <MenuItem
+                              value={account.accountname}
+                              key={account.accountname}
+                            >
+                              {account.accountname}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={12} sm={5}>
@@ -223,53 +232,65 @@ const PostEntry = ({ accounts }) => {
                           color="error"
                           size="medium"
                           onClick={() => handleRemoveDebit(index)}
-                          startIcon={<RemoveCircleIcon/>}
                         >
-                          Remove
+                          <RemoveCircleIcon />
                         </Button>
                       </Grid>
                     )}
                   </Grid>
                 ))}
-                <Grid item xs={12} sm={5}>
-                  <Button
-                    sx={{}}
-                    variant="contained"
-                    color="secondary"
-                    size="medium"
-                    onClick={handleAddDebit}
-                    startIcon={<AddCircleIcon/>}
-                  >
-                    Add More
-                  </Button>
-                </Grid>
+                <AddCircleIcon
+                  sx={{
+                    display: "flex",
+                    color: "#617A55",
+                    fontSize: "3rem",
+                    cursor: "pointer",
+                    margin: "auto",
+                  }}
+                  onClick={handleAddDebit}
+                />
 
-                <Typography variant="h2" sx={{mb:3,mt:8}}>Credit</Typography>
+                <Typography
+                  sx={{
+                    width: "100%",
+                    padding: "1rem",
+                    borderBottom: "1px solid rgba(77,77,77,0.2)",
+                    textAlign: "center",
+                    textTransform: "uppercase",
+                    mb: 3,
+                    mt: 4,
+                  }}
+                  variant="h2"
+                >
+                  CREDIT ACCOUNT'S ENTRIES
+                </Typography>
                 {creditList.map((credit, index) => (
                   <Grid key={index} container spacing={5} sx={{ mb: 3 }}>
                     <Grid item xs={12} sm={5}>
-                    <FormControl fullWidth>
-                      <InputLabel id="selectingfabrictype">
-                        Account Name
-                      </InputLabel>
-                      <Select
-                        required
-                        label="Account Name"
-                        defaultValue=""
-                        id="type"
-                        name="accountname"
-                        value={credit.accountname}
-                        onChange={(e) => handleChangeCredit(e, index)}
-                        labelId="selectingaccountname"
-                      >
-                        {accounts.map((account) => (
-              <MenuItem value={account.accountname} key={account.accountname}>
-                {account.accountname}
-              </MenuItem>
-            ))}
-                        
-                      </Select>
-                    </FormControl>
+                      <FormControl fullWidth>
+                        <InputLabel id="selectingfabrictype">
+                          Account Name
+                        </InputLabel>
+                        <Select
+                          required
+                          label="Account Name"
+                          defaultValue=""
+                          id="type"
+                          name="accountname"
+                          value={credit.accountname}
+                          onChange={(e) => handleChangeCredit(e, index)}
+                          labelId="selectingaccountname"
+                        >
+                          {accounts.map((account) => (
+                            <MenuItem
+                              value={account.accountname}
+                              key={account.accountname}
+                            >
+                              {account.accountname}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={12} sm={5}>
@@ -292,40 +313,61 @@ const PostEntry = ({ accounts }) => {
                           color="error"
                           size="medium"
                           onClick={() => handleRemoveCredit(index)}
-                          startIcon={<RemoveCircleIcon/>}
                         >
-                          Remove
+                          <RemoveCircleIcon />
                         </Button>
                       </Grid>
                     )}
                   </Grid>
                 ))}
-                <Grid item xs={12} sm={5}>
-                  <Button
-                    sx={{}}
-                    variant="contained"
-                    color="secondary"
-                    size="medium"
-                    onClick={handleAddCredit}
-                    startIcon={<AddCircleIcon/>}
-                  >
-                    Add More
-                  </Button>
-                </Grid>
-
+                <AddCircleIcon
+                  sx={{
+                    display: "flex",
+                    color: "#617A55",
+                    fontSize: "3rem",
+                    cursor: "pointer",
+                    margin: "auto",
+                  }}
+                  onClick={handleAddCredit}
+                />
               </CardContent>
               <Divider sx={{ mt: 1 }} />
               <CardActions style={{ padding: "16px" }}>
-
-                {flag?<Button type="submit" size="large" sx={{}} variant="contained" startIcon={<LoginIcon/>}>
-                  Post To Ledger
-                </Button> :<> <Button disabled type="submit" size="large" sx={{}} variant="contained" startIcon={<LoginIcon/>}>
-                  Post To Ledger
-                </Button>
-                <Typography variant="h5" sx={{ml:2, color:"red"}}>Debit and Credit values should be equal</Typography>
-                </>
-                }
-                
+                {flag ? (
+                   <div className="w-full flex justify-center">
+                   <Button
+                     size="large"
+                     type="submit"
+                     sx={{
+                       width: "20%",
+                       backgroundColor: "#617A55",
+                       "&:hover": {
+                         backgroundColor: "#A4D0A4",
+                       },
+                     }}
+                     variant="contained"
+                   >
+                     POST TO LEDGER
+                   </Button>
+                 </div>
+                ) : (
+                  <>
+                    {" "}
+                    <Button
+                      disabled
+                      type="submit"
+                      size="large"
+                      sx={{}}
+                      variant="contained"
+                      startIcon={<LoginIcon />}
+                    >
+                      Post To Ledger
+                    </Button>
+                    <Typography variant="h5" sx={{ ml: 2, color: "red" }}>
+                      Debit and Credit values should be equal
+                    </Typography>
+                  </>
+                )}
               </CardActions>
             </form>
           </BaseCard>
@@ -341,7 +383,7 @@ export async function getServerSideProps() {
   if (!mongoose.connections[0].readyState) {
     await mongoose.connect(process.env.MONGO_URI);
   }
-  let accounts = await Account.find().sort({"accounttype":1});
+  let accounts = await Account.find().sort({ accounttype: 1 });
 
   return {
     props: {

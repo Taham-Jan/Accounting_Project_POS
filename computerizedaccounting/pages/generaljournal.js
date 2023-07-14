@@ -20,7 +20,7 @@ const GeneralJournal = ({ journalentries }) => {
   
   return (
     <>
-      <BaseCard title="">
+      <BaseCard title="General Journal">
         <TableContainer>
           <Table
             aria-label="simple table"

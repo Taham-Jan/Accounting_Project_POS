@@ -1,6 +1,6 @@
 const Menuitems = [
   {
-    title: "Dashboard",
+    title: "All Accounts",
     icon: "home",
     href: "/",
   },
@@ -10,23 +10,21 @@ const Menuitems = [
     href: "/addaccount",
   },
   {
-    title: "Post Entry",
-    icon: "log-in",
-    href: "/postentry",
-  },
-  {
     title: "Financial Statements",
     icon: "dollar-sign",
     href: "/financialstatements",
   },
   {
+    title: "Ledger Posting",
+    icon: "log-in",
+    href: "/postentry",
+  },
+
+  {
     title: "General Journal",
     icon: "book-open",
     href: "/generaljournal",
   },
- 
- 
-  
 ];
 
 export default Menuitems;

@@ -2,10 +2,7 @@ import { createTheme, rgbToHex } from "@mui/material/styles";
 import components from "./ComponentOverRide";
 import shadows from "./Shadows";
 import typography from "./Typoraphy";
-
-// Create a theme instance.
 const theme = createTheme({
-  
   palette: {
     primary: {
       main: "rgb(99 102 241)",

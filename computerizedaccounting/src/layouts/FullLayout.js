@@ -5,11 +5,10 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 
 const MainWrapper = experimentalStyled("div")(() => ({
-  fontFamily: "'Montserrat' !important",
+  fontFamily: "'Montserrat',san-serif !important",
   display: "flex",
   minHeight: "100vh",
   overflow: "hidden",
@@ -36,13 +35,7 @@ const FullLayout = ({ children, user, logout }) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <MainWrapper>
-      <Header
-        sx={{
-          paddingLeft: isSidebarOpen && lgUp ? "265px" : "",
-          backgroundColor: "#fbfbfb",
-        }}
-        toggleMobileSidebar={() => setMobileSidebarOpen(true)}
-      />
+
       <Sidebar
         logout={logout}
         isSidebarOpen={isSidebarOpen}
